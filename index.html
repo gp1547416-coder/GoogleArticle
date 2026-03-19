@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Understand Google | TechWiki</title>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        .fade-out { animation: fadeOut 0.5s forwards; }
+        .wh-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const App = () => {
+            const [loading, setLoading] = useState(true);
+
+            useEffect(() => {
+                const timer = setTimeout(() => setLoading(false), 1800);
+                return () => clearTimeout(timer);
+            }, []);
+
+            if (loading) {
+                return (
+                    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white">
+                        <div className="w-12 h-12 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin"></div>
+                        <h2 className="mt-4 text-2xl font-black text-emerald-600 italic tracking-tighter">TechWiki</h2>
+                        <p className="text-slate-400 text-xs mt-2 uppercase tracking-widest font-bold">Initializing Knowledge...</p>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+                    {/* Header */}
+                    <nav className="bg-white border-b sticky top-0 z-40 px-4 py-3">
+                        <div className="max-w-5xl mx-auto flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <h1 className="text-2xl font-black text-emerald-600 italic tracking-tighter">TechWiki</h1>
+                                <div className="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-1.5 border">
+                                    <i data-lucide="search" className="w-4 h-4 text-slate-400 mr-2"></i>
+                                    <input type="text" placeholder="Search technology..." className="bg-transparent outline-none text-sm w-64" />
+                                </div>
+                            </div>
+                            <i data-lucide="menu" className="w-6 h-6 text-slate-600"></i>
+                        </div>
+                    </nav>
+
+                    {/* Main Article */}
+                    <main className="max-w-4xl mx-auto mt-6 px-4 pb-20">
+                        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                            <div className="p-6 md:p-10 border-b border-slate-100">
+                                <div className="flex items-center gap-2 text-emerald-700 text-[10px] font-bold uppercase tracking-wider mb-3">
+                                    <span>Computers</span> <i data-lucide="chevron-right" className="w-3 h-3"></i> 
+                                    <span>Internet Giants</span>
+                                </div>
+                                <h2 className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight">
+                                    How to Understand the Impact of Google
+                                </h2>
+                                <div className="mt-6 flex items-center gap-4 py-4 border-y border-slate-50 text-sm">
+                                    <div className="flex items-center gap-2 font-bold text-slate-700">
+                                        <div className="bg-emerald-100 p-1 rounded-full"><i data-lucide="user-check" className="w-4 h-4 text-emerald-600"></i></div>
+                                        <span className="underline decoration-dotted">TechWiki Staff</span>
+                                    </div>
+                                    <span className="text-slate-400">Updated March 18, 2026</span>
+                                </div>
+                            </div>
+
+                            <div className="p-6 md:p-10">
+                                <p className="text-lg text-slate-600 leading-relaxed italic mb-10">
+                                    Google is the backbone of the modern internet. From its origins as a search engine to its current dominance in artificial intelligence and cloud infrastructure, understanding Google is essential for any digital citizen.
+                                </p>
+
+                                {/* Step Section */}
+                                <div className="space-y-16">
+                                    <section className="relative pl-14">
+                                        <div className="absolute left-0 top-0 bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-md">1</div>
+                                        <h3 className="text-2xl font-bold mb-4">Analyze the Ecosystem.</h3>
+                                        <div className="bg-slate-900 aspect-video rounded-2xl mb-6 flex flex-col items-center justify-center border-4 border-slate-800">
+                                            <i data-lucide="cpu" className="w-16 h-16 text-emerald-500 animate-pulse"></i>
+                                            <p className="text-emerald-500/50 font-mono text-xs mt-4">[SYSTEM_CORE_VISUALIZATION]</p>
+                                        </div>
+                                        <p className="text-slate-700 leading-loose">
+                                            Google’s evolution is a masterclass in technological scaling. Founded by Larry Page and Sergey Brin in 1998, it began with a simple yet powerful thesis: the importance of a webpage can be determined by the number of other pages that link to it. This became the <strong>PageRank</strong> algorithm. Over nearly three decades, Google has expanded from a simple search box into <strong>Alphabet Inc.</strong>, a massive conglomerate. Its core strength lies in its ability to process trillions of data points using its proprietary global network of data centers. By integrating <strong>Android</strong> (the world's most popular OS), <strong>YouTube</strong> (the second largest search engine), and <strong>Google Cloud</strong>, the company has created an inescapable digital loop. Today, as we move into 2026, Google has pivoted entirely toward an "AI-First" strategy, utilizing its <strong>Gemini</strong> models to synthesize information rather than just index it, effectively turning the search engine into a personal assistant for the entire planet.
+                                        </p>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    <footer className="py-12 bg-white border-t text-center">
+                        <div className="flex justify-center items-center gap-2 mb-2 font-black italic text-slate-800">
+                            <span className="text-emerald-600">Tech</span>Wiki
+                        </div>
+                        <p className="text-slate-400 text-xs uppercase tracking-widest font-bold">The Manual for the Future</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+
+        // Refresh icons after React renders
+        setTimeout(() => lucide.createIcons(), 2000);
+    </script>
+</body>
+</html>
