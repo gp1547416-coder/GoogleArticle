@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechWiki | The Digital Manual</title>
+    <title>TechWiki | 40 Expert Guides</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -12,6 +12,7 @@
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
+        .step-number { box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39); }
     </style>
 </head>
 <body>
@@ -21,39 +22,57 @@
         const { useState, useEffect } = React;
 
         const articles = [
-            { id: 1, title: "How to Understand Google", icon: "search", content: "Google started as PageRank at Stanford and grew into Alphabet, a global AI and search powerhouse." },
-            { id: 2, title: "How Apple Redefined Hardware", icon: "smartphone", content: "From the Macintosh to the iPhone, Apple focuses on vertical integration and premium user experience." },
-            { id: 3, title: "The Rise of Tesla & EVs", icon: "zap", content: "Tesla shifted the global automotive industry toward sustainable energy and software-defined vehicles." },
-            { id: 4, title: "How Semiconductors Work", icon: "cpu", content: "Silicon chips are the brain of the modern world, etched with billions of transistors via lithography." },
-            { id: 5, title: "Understanding Cloud Computing", icon: "cloud", content: "AWS, Azure, and Google Cloud allow businesses to rent supercomputing power over the internet." },
-            { id: 6, title: "How Blockchain Secures Data", icon: "shield", content: "A decentralized ledger that ensures transparency and security without a central authority." },
-            { id: 7, title: "The Future of Quantum Computing", icon: "atom", content: "Using subatomic particles to solve calculations that would take millions of years for a standard PC." },
-            { id: 8, title: "How SpaceX Reaches Mars", icon: "rocket", content: "Reusable rocketry is lowering the cost of space travel and making humanity a multi-planetary species." },
-            { id: 9, title: "Understanding Generative AI", icon: "bot", content: "Large Language Models like Gemini and GPT-4 use neural networks to predict and create human-like text." },
-            { id: 10, title: "How 5G Changes Connectivity", icon: "antenna", content: "Ultra-low latency and massive bandwidth enable the Internet of Things (IoT) at a global scale." },
-            // ... (Imagine 30 more topics added here to fill the list)
-            { id: 11, title: "The Metaverse Explained", icon: "glasses", content: "Blending VR and AR to create a persistent 3D digital space for work and play." },
-            { id: 12, title: "How Cybersecurity Protects You", icon: "lock", content: "Encryption and firewalls form the front line against global digital threats." },
-            { id: 13, title: "The Evolution of Video Games", icon: "gamepad-2", content: "From Pong to ray-traced open worlds, gaming pushes the limits of consumer hardware." },
-            { id: 14, title: "How Social Algorithms Work", icon: "users", content: "Engagement-based ranking determines what you see on TikTok, Instagram, and X." },
-            { id: 15, title: "Understanding Open Source", icon: "code-2", content: "How Linux and GitHub allow the world to build software together for free." }
+            { id: 1, icon: "search", title: "How to Understand Google Search", content: "Google utilizes a complex system called RankBrain and the Gemini AI model to process billions of queries. It doesn't just look for keywords; it understands 'intent' by mapping concepts in a multi-dimensional vector space." },
+            { id: 2, icon: "smartphone", title: "How Apple Controls the Ecosystem", content: "Apple’s strategy revolves around 'The Walled Garden.' By designing their own silicon (M-series chips) and controlling the App Store, they ensure a seamless but locked-in user experience across iPhone, Mac, and Vision Pro." },
+            { id: 3, icon: "cpu", title: "How NVIDIA Dominates AI Silicon", content: "NVIDIA moved from gaming GPUs to AI powerhouses by developing CUDA. Their H100 chips are now the gold standard for training Large Language Models because they can perform parallel matrix multiplications faster than any CPU." },
+            { id: 4, icon: "zap", title: "How Tesla Solved Range Anxiety", content: "Tesla's lead isn't just the cars; it's the Supercharger network and their Battery Management System (BMS). They use thousands of small cylindrical cells managed by software to prevent overheating and maximize cycle life." },
+            { id: 5, icon: "shield-check", title: "How End-to-End Encryption Works", content: "E2EE ensures that only the sender and receiver can read a message. Using Public-Key Cryptography, apps like Signal and WhatsApp encrypt data on your device so even the service provider can't see your chats." },
+            { id: 6, icon: "database", title: "How Big Data Fuels the Economy", content: "Data is the new oil. Companies use Hadoop and Spark to process 'unstructured data'—like your likes, clicks, and dwell time—to build predictive profiles that advertisers pay billions for." },
+            { id: 7, icon: "globe", title: "How the Undersea Cables Run the Web", content: "99% of international data is transmitted via fiber-optic cables on the ocean floor, not satellites. These cables are as thin as soda cans but carry terabits of data using light pulses across thousands of miles." },
+            { id: 8, icon: "bot", title: "How Generative AI 'Thinks'", content: "Generative AI doesn't 'know' facts. It uses a Transformer architecture to predict the next most likely token (word fragment) in a sequence based on patterns it learned from reading the entire public internet." },
+            { id: 9, icon: "layers", title: "How 3D Printing is Changing Tech", content: "Additive manufacturing (3D Printing) allows for rapid prototyping. In 2026, it's being used to print everything from titanium rocket engine parts to biocompatible human tissue for medical transplants." },
+            { id: 10, icon: "rocket", title: "How SpaceX Makes Rockets Reusable", content: "SpaceX uses 'retropropulsion' and grid fins to steer the Falcon 9 first stage back to a landing pad. This reduces the cost of space flight by 10x because they aren't throwing away a $50 million machine every time." },
+            { id: 11, icon: "cloud", title: "How AWS Powers the Internet", content: "Amazon Web Services provides 'Infrastructure as a Service.' Most of your favorite apps (Netflix, Airbnb, etc.) don't own servers; they rent virtual space in Amazon's massive data centers across the globe." },
+            { id: 12, icon: "hard-drive", title: "How SSDs Replaced Hard Drives", content: "Traditional HDDs used spinning platters. Solid State Drives (SSDs) use NAND flash memory. There are no moving parts, meaning data access is near-instant and much more resistant to physical damage." },
+            { id: 13, icon: "coins", title: "How Bitcoin Maintains Scarcity", content: "Bitcoin is hard-coded to only ever have 21 million coins. Through a process called 'The Halving,' the amount of new Bitcoin created every 10 minutes is cut in half every four years, creating digital gold." },
+            { id: 14, icon: "eye", title: "How Facial Recognition Works", content: "Software maps the geometry of your face—measuring the distance between eyes and the shape of your cheekbones—and converts this into a 'faceprint' code that is compared against a database in milliseconds." },
+            { id: 15, icon: "wifi", title: "How Wi-Fi 7 Handles Crowded Airwaves", content: "Wi-Fi 7 uses 'Multi-Link Operation' (MLO) to send data across multiple frequency bands (2.4GHz, 5GHz, and 6GHz) at once, reducing lag even in high-density areas like stadiums or apartment blocks." },
+            { id: 16, icon: "gamepad-2", title: "How Ray Tracing Creates Realism", content: "Ray tracing is a rendering technique that simulates the physical behavior of light. Instead of painting shadows, it 'traces' individual light rays to create realistic reflections, refractions, and global illumination." },
+            { id: 17, icon: "microscope", title: "How Nanotechnology Shrinks Tech", content: "We are now building at the scale of 2 nanometers. At this size, quantum effects take over, allowing for faster electrons and much lower power consumption in the chips inside your phone." },
+            { id: 18, icon: "binary", title: "How Linux Runs the World", content: "Linux is an open-source kernel that powers 100% of the world's top 500 supercomputers, most web servers, and every Android phone. Its modular nature allows it to run on everything from a toaster to a spaceship." },
+            { id: 19, icon: "activity", title: "How Wearables Track Your Health", content: "Smartwatches use PPG sensors (green light) to measure blood flow and SpO2. This data is processed by algorithms to detect irregularities like Atrial Fibrillation before you even feel a symptom." },
+            { id: 20, icon: "share-2", title: "How 5G and 6G Connect Everything", content: "While 5G focused on speed, 6G is being designed for 'Integrated Sensing.' This means the network itself will be able to detect the position of objects, enabling perfectly autonomous cities." },
+            { id: 21, icon: "anchor", title: "How Docker and Containers Work", content: "Containers package code and all its dependencies together so an app runs quickly and reliably from one computing environment to another, solving the 'it works on my machine' problem." },
+            { id: 22, icon: "brain", title: "How Neuralink Interfaces with Brains", content: "Brain-Computer Interfaces (BCI) use tiny electrodes to record neural spikes. AI then decodes these electrical signals into digital commands, allowing paralyzed individuals to control computers with thought." },
+            { id: 23, icon: "key", title: "How Passkeys are Killing Passwords", content: "Passkeys use FIDO2 standards to replace passwords with biometric 'local' keys. Since there is no password stored on a server, there is nothing for hackers to steal in a data breach." },
+            { id: 24, icon: "navigation", title: "How GPS Knows Where You Are", content: "Your phone listens to time signals from at least 4 satellites. By calculating the slight delay in each signal (speed of light), it uses trilateration to pinpoint your exact location on Earth." },
+            { id: 25, icon: "battery", title: "How Solid-State Batteries Work", content: "Next-gen batteries replace the liquid electrolyte with a solid ceramic. This makes them fire-proof, allows for 2x the energy density, and enables EVs to charge in under 10 minutes." },
+            { id: 26, icon: "message-square", title: "How Chatbots Understand Context", content: "Modern bots use a 'Context Window.' They store the last few thousand words of a conversation in their temporary memory to ensure that their current answer aligns with what you asked five minutes ago." },
+            { id: 27, icon: "camera", title: "How Computational Photography Works", content: "Your phone takes 10+ photos the moment you hit the shutter. It then uses an ISP (Image Signal Processor) to merge them, reducing noise and creating 'HDR' shots that old DSLRs can't match." },
+            { id: 28, icon: "atom", title: "How Quantum Supremacy is Reached", content: "Quantum supremacy is the point where a quantum computer performs a task that is impossible for a classical computer. Google and IBM are currently competing to reach this milestone using 'Qubits'." },
+            { id: 29, icon: "alert-triangle", title: "How Deepfakes are Created", content: "Deepfakes use GANs (Generative Adversarial Networks). Two AIs fight: one creates a fake image, and the other tries to catch it. Over millions of rounds, the 'creator' AI becomes perfectly realistic." },
+            { id: 30, icon: "repeat", title: "How Agile Development Works", content: "Gone are the days of 'Waterfall' planning. Agile uses 'Sprints' and 'Scrum' to build software in small, iterative pieces, allowing teams to pivot based on user feedback immediately." },
+            { id: 31, icon: "headphones", title: "How Active Noise Canceling Works", content: "Microphones on your headphones listen to outside noise. The speakers then produce an 'anti-noise' sound wave that is exactly 180 degrees out of phase, canceling the sound before it hits your eardrum." },
+            { id: 32, icon: "server", title: "How Edge Computing Speeds Up Tech", content: "Edge computing moves data processing closer to the user (like in a local cell tower) rather than a distant cloud center. This is vital for self-driving cars where every millisecond counts." },
+            { id: 33, icon: "shopping-cart", title: "How Amazon Logistics Works", content: "Amazon uses Kiva robots to bring shelves to human workers. Their AI predicts what people in a certain zip code will buy before they even buy it, moving stock to local 'Fulfillment Centers' early." },
+            { id: 34, icon: "tv", title: "How OLED vs QLED Differs", content: "OLED (Organic Light Emitting Diode) pixels turn off completely for true black. QLED uses a backlight with 'Quantum Dots' to get much brighter. For movies, OLED wins; for bright rooms, QLED wins." },
+            { id: 35, icon: "git-branch", title: "How GitHub Manages Code", content: "Git is a version control system. It allows thousands of developers to work on the same file at once by creating 'branches.' Once a feature is done, it is 'merged' back into the main project." },
+            { id: 36, icon: "radio", title: "How Bluetooth LE Saves Power", content: "Bluetooth Low Energy (LE) stays in 'sleep mode' until a connection is initiated. It sends small bursts of data, allowing devices like AirTags to run for a year on a single coin-cell battery." },
+            { id: 37, icon: "briefcase", title: "How Fintech Disrupted Banks", content: "Fintechs use APIs to connect your bank account directly to apps like Venmo or Robinhood. They bypass traditional banking fees by using automated clearing houses (ACH) and digital-first ledgers." },
+            { id: 38, icon: "heart", title: "How Tech Assists Accessibility", content: "From eye-tracking software to haptic vests for the deaf, technology is bridging the gap for people with disabilities. AI-driven live captions are now standard across all major OS platforms." },
+            { id: 39, icon: "refresh-cw", title: "How the Circular Economy Works", content: "Tech companies are moving toward 'Right to Repair' and modular designs. The goal is to recover precious metals like gold and cobalt from old phones to build new ones without mining." },
+            { id: 40, icon: "stars", title: "How TechWiki Predicts the Future", content: "By analyzing patent filings and venture capital flow, TechWiki identifies 'The Next Big Thing.' In 2026, the focus is shifting from generative screens to ambient AI that exists without hardware." }
         ];
-
-        // Fill up to 40 for the UI demo
-        const fullArticles = [...articles];
-        for (let i = 16; i <= 40; i++) {
-            fullArticles.push({ id: i, title: `Article #${i}: Tech Deep Dive`, icon: "file-text", content: "Detailed technical analysis of modern digital infrastructure and its societal impact." });
-        }
 
         const App = () => {
             const [loading, setLoading] = useState(true);
-            const [activeArticle, setActiveArticle] = useState(fullArticles[0]);
+            const [activeArticle, setActiveArticle] = useState(articles[0]);
 
             useEffect(() => {
                 const timer = setTimeout(() => {
                     setLoading(false);
                     lucide.createIcons();
-                }, 1500);
+                }, 1800);
                 return () => clearTimeout(timer);
             }, []);
 
@@ -62,60 +81,84 @@
             if (loading) {
                 return (
                     <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-[100]">
-                        <div className="w-12 h-12 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin"></div>
-                        <h1 className="mt-4 text-3xl font-black text-emerald-600 italic tracking-tighter italic">TechWiki</h1>
+                        <div className="w-16 h-16 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin mb-6"></div>
+                        <h1 className="text-4xl font-black text-emerald-600 italic tracking-tighter">TechWiki</h1>
+                        <p className="text-slate-400 text-xs font-bold uppercase tracking-[0.3em] mt-2">Loading Articles...</p>
                     </div>
                 );
             }
 
             return (
-                <div className="min-h-screen bg-slate-50 flex flex-col">
-                    <nav className="bg-white border-b sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
+                <div className="min-h-screen bg-slate-50 flex flex-col h-screen">
+                    {/* NavBar */}
+                    <nav className="bg-white border-b px-6 py-4 flex justify-between items-center shadow-sm shrink-0">
                         <div className="flex items-center gap-2">
                             <span className="text-2xl font-black text-emerald-600 italic tracking-tighter">TechWiki</span>
                         </div>
-                        <div className="hidden md:block text-slate-400 text-sm font-medium italic">"Knowledge for the Next Billion Users"</div>
-                        <i data-lucide="menu" className="text-slate-600 cursor-pointer"></i>
+                        <div className="hidden lg:flex items-center gap-6">
+                            <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest bg-slate-100 px-3 py-1 rounded">2026 Edition</div>
+                        </div>
+                        <i data-lucide="search" className="text-slate-400 w-5 h-5"></i>
                     </nav>
 
                     <div className="flex flex-1 overflow-hidden">
-                        {/* Sidebar - Perfect for iPad scrolling */}
-                        <aside className="hidden lg:block w-80 bg-white border-r overflow-y-auto custom-scrollbar">
-                            <div className="p-4 font-bold text-xs uppercase tracking-widest text-slate-400 border-b">40 Tech Articles</div>
-                            {fullArticles.map(art => (
+                        {/* Sidebar */}
+                        <aside className="w-full lg:w-80 bg-white border-r overflow-y-auto custom-scrollbar flex-shrink-0">
+                            <div className="p-4 sticky top-0 bg-white z-10 border-b">
+                                <h3 className="text-[11px] font-black uppercase text-slate-400 tracking-[0.2em]">The Tech Library</h3>
+                            </div>
+                            {articles.map(art => (
                                 <button 
                                     key={art.id}
                                     onClick={() => setActiveArticle(art)}
-                                    className={`w-full text-left p-4 hover:bg-emerald-50 border-b transition-colors flex items-center gap-3 ${activeArticle.id === art.id ? 'bg-emerald-50 border-r-4 border-r-emerald-600' : ''}`}
+                                    className={`w-full text-left p-4 hover:bg-slate-50 border-b transition-all flex items-center gap-4 ${activeArticle.id === art.id ? 'bg-emerald-50 border-r-4 border-r-emerald-600' : ''}`}
                                 >
-                                    <i data-lucide={art.icon} className={`w-4 h-4 ${activeArticle.id === art.id ? 'text-emerald-600' : 'text-slate-400'}`}></i>
-                                    <span className={`text-sm font-semibold ${activeArticle.id === art.id ? 'text-emerald-700' : 'text-slate-600'}`}>{art.title}</span>
+                                    <div className={`p-2 rounded-lg ${activeArticle.id === art.id ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+                                        <i data-lucide={art.icon} className="w-4 h-4"></i>
+                                    </div>
+                                    <span className={`text-sm font-bold leading-tight ${activeArticle.id === art.id ? 'text-emerald-900' : 'text-slate-600'}`}>{art.title}</span>
                                 </button>
                             ))}
                         </aside>
 
                         {/* Article Content */}
-                        <main className="flex-1 overflow-y-auto p-6 md:p-12">
-                            <div className="max-w-3xl mx-auto bg-white rounded-2xl border shadow-sm p-8 md:p-16">
-                                <div className="flex items-center gap-2 text-emerald-700 text-[10px] font-bold uppercase tracking-widest mb-6">
-                                    <i data-lucide="book-open" className="w-4 h-4"></i>
-                                    TechWiki Expert Verified
-                                </div>
-                                <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-none mb-8">
-                                    {activeArticle.title}
-                                </h1>
-                                <div className="aspect-video bg-slate-100 rounded-3xl mb-10 flex flex-col items-center justify-center text-emerald-600 border-2 border-dashed border-emerald-200">
-                                    <i data-lucide={activeArticle.icon} className="w-20 h-20 mb-4 opacity-20"></i>
-                                    <span className="font-mono text-xs uppercase tracking-widest opacity-50">Visualizing Technology...</span>
-                                </div>
-                                <p className="text-xl text-slate-600 leading-relaxed mb-8 first-letter:text-5xl first-letter:font-bold first-letter:text-emerald-600 first-letter:mr-2 first-letter:float-left">
-                                    {activeArticle.content} This article explores the intricate details of how {activeArticle.title.replace("How to ", "")} impacts the global economy and individual users. As we move further into 2026, the convergence of hardware efficiency and AI software continues to redefine the boundaries of what is possible.
-                                </p>
-                                <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-xl">
-                                    <h4 className="font-bold text-emerald-800 flex items-center gap-2 mb-2">
-                                        <i data-lucide="lightbulb" className="w-5 h-5"></i> TechWiki Quick Tip
-                                    </h4>
-                                    <p className="text-emerald-700 text-sm italic">Always check for the latest firmware updates and security patches to ensure your digital tools remain safe and efficient in this rapidly evolving landscape.</p>
+                        <main className="hidden lg:block flex-1 overflow-y-auto bg-slate-50 p-8">
+                            <div className="max-w-3xl mx-auto bg-white rounded-3xl border shadow-xl shadow-slate-200/50 overflow-hidden">
+                                <div className="p-10 md:p-16">
+                                    <div className="flex items-center gap-3 text-emerald-600 text-xs font-bold uppercase tracking-widest mb-8">
+                                        <i data-lucide="shield-check" className="w-4 h-4"></i>
+                                        TechWiki Verified Expert Content
+                                    </div>
+                                    
+                                    <h1 className="text-5xl font-black text-slate-900 leading-[1.1] mb-10 tracking-tight">
+                                        {activeArticle.title}
+                                    </h1>
+
+                                    <div className="aspect-video bg-slate-950 rounded-3xl mb-12 flex flex-col items-center justify-center relative overflow-hidden group">
+                                        <div className="absolute inset-0 bg-emerald-500/10 group-hover:bg-emerald-500/0 transition-all duration-700"></div>
+                                        <i data-lucide={activeArticle.icon} className="w-24 h-24 text-emerald-500 mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]"></i>
+                                        <span className="font-mono text-[10px] uppercase tracking-[0.5em] text-emerald-500/50">Article Core Visualization</span>
+                                    </div>
+
+                                    <div className="space-y-8">
+                                        <section className="relative pl-16">
+                                            <div className="absolute left-0 top-0 bg-emerald-600 text-white w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-xl step-number transform -rotate-3">1</div>
+                                            <h2 className="text-2xl font-black text-slate-900 mb-4">The Technical Foundations</h2>
+                                            <p className="text-xl text-slate-600 leading-[1.8] first-letter:text-5xl first-letter:font-black first-letter:text-emerald-600 first-letter:mr-3 first-letter:float-left">
+                                                {activeArticle.content}
+                                            </p>
+                                        </section>
+
+                                        <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 mt-12">
+                                            <div className="flex items-center gap-3 mb-4 text-emerald-800 font-black uppercase text-sm">
+                                                <i data-lucide="lightbulb" className="w-5 h-5 text-emerald-600"></i>
+                                                TechWiki Pro Tip
+                                            </div>
+                                            <p className="text-emerald-700 leading-relaxed font-medium italic">
+                                                "Understanding the hardware-to-software abstraction layer is the key to mastering modern technology. Always look for the 'why' behind the algorithm."
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </main>
